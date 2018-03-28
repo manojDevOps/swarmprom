@@ -1,0 +1,25 @@
+global:
+  # The smarthost and SMTP sender used for mail notifications.
+  smtp_smarthost: 'smtp.sendgrid.net:587'
+  smtp_from: 'swarm-a@mycroft.ai'
+  smtp_auth_username: 'apikey'
+  smtp_auth_password: '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'
+route:
+  group_by: ['alertname']
+  group_wait: 30s
+  group_interval: 30s
+  repeat_interval: 60s
+  receiver: team-X-mails
+
+  routes:
+  - match:
+      job: dailytest
+    receiver: team-X-mails
+    repeat_interval: 60s
+
+receivers:
+- name: 'team-X-mails'
+  email_configs:
+  - to: 'manoj.palavalasa@mycroft.ai'
+
+
